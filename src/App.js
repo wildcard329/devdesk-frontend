@@ -1,26 +1,54 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {Route, Switch, Redirect} from "react-router-dom";
+import SignupPage from "./components/signup/signuppage.jsx";
+import LoginPage from "./components/login/loginpage.jsx";
+import Dashboard from "./components/userdashboard/dashboard.jsx";
+import { connect } from "react-redux";
+
+const SignUpRoute = ({component: Component, ...props}) => {
+
+  return (
+  <Route
+    {...props}
+    render = { props => 
+      !props.loggedIn ?
+      ( <Component {...props}/> ) :  (<Redirect to="/dashboard" />)
+        }
+    />
+  )
+}
+
+const ProtectedRoute = ({component: Component, ...props}) => {
+
+  return (
+  <Route
+    {...props}
+    render = { props => 
+      !props.loggedIn ?
+      ( <Component {...props}/> ) :  (<Redirect to="/" />)
+        }
+    />
+  )
+}
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Switch>
+        <ProtectedRoute path = "/dashboard" component={Dashboard} />
+        <SignUpRoute exact path = "/" component={SignupPage} />
+      </Switch>
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  console.log(state)
+  return {
+    
+    loggedIn: state.loggedIn
+  }
+}
+
+export default connect(mapStateToProps, {})(App);
