@@ -6,7 +6,7 @@ import {makeStyles} from "@material-ui/styles";
 import {connect} from "react-redux";
 import * as yup from "yup";
 
-import {addUser} from "../../actions";
+import {requestUser} from "../../actions";
 
 const passwordErrorText = "password must contain at least 1 of each uppercase/lowercase character, number, symbol"
 
@@ -82,9 +82,9 @@ const Signup = props => {
 
     const handleSubmit = (values, {setSubmitting}) => {
         setSubmitting(true);
-        props.addUser(data);
+        props.requestUser(data);
         setSubmitting(false);
-        history.push('dashboard');
+        history.push('login');
     }
     return (
         <div className={classes["container"]}>
@@ -111,4 +111,4 @@ const Signup = props => {
     )
 }
 
-export default connect(null, {addUser})(Signup);
+export default connect(null, {requestUser})(Signup);

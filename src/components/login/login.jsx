@@ -6,7 +6,7 @@ import {makeStyles} from "@material-ui/styles";
 import {connect} from "react-redux";
 import * as yup from "yup";
 
-import {addUser} from "../../actions";
+import {requestLogin} from "../../actions";
 
 const passwordErrorText = "password must contain at least 1 of each uppercase/lowercase character, number, symbol"
 
@@ -26,15 +26,7 @@ const validationSchema = yup.object().shape({
         .matches(/[0-9]/, passwordErrorText)
         .matches(/[A-Z]/, passwordErrorText)
         .matches(/[a-z]/, passwordErrorText)
-        .matches(/[-+_!@#$%^&*.,?]/, passwordErrorText),
-        passwordConfirmation:
-        yup.string()
-        .oneOf([yup.ref('password'), null], "passwords must match"),
-    email:
-        yup
-        .string()
-        .required()
-        .email(),
+        .matches(/[-+_!@#$%^&*.,?]/, passwordErrorText)
 })
 
 const useStyles = makeStyles(() => {
@@ -72,9 +64,7 @@ const useStyles = makeStyles(() => {
 const Login = props => {
     const [data, setData] = useState({
         username: '',
-        password: '',
-        confirmPassword: '',
-        email: ''
+        password: ''
     })
 
     const classes = useStyles();
@@ -82,13 +72,13 @@ const Login = props => {
 
     const handleSubmit = (values, {setSubmitting}) => {
         setSubmitting(true);
-        props.addUser(data);
+        props.requestLogin(data);
         setSubmitting(false);
         history.push('dashboard');
     }
     return (
         <div className={classes["container"]}>
-            <Typography variant="h5">Register Below</Typography>
+            <Typography variant="h5">Sign in Below</Typography>
             <Formik
             initialValues={{}}
             validationSchema={validationSchema}
@@ -99,11 +89,7 @@ const Login = props => {
                         <ErrorMessage name="username" render={msg => <div> className={classes["error"]}</div>} />
                         <Field name='password' label='password' variant='outlined' id='outlined-basic' type='text' as={TextField} />
                         <ErrorMessage name="password" render={msg => <div> className={classes["error"]}</div>} />
-                        <Field name='confirm password' label='confirm password' variant='outlined' id='outlined-basic' type='text' as={TextField} />
-                        <ErrorMessage name="confirm password" render={msg => <div> className={classes["error"]}</div>} />
-                        <Field name='email' label='email' variant='outlined' id='outlined-basic' type='text' as={TextField} />
-                        <ErrorMessage name="email" render={msg => <div> className={classes["error"]}</div>} />
-                        <Button onClick={() => (handleSubmit(values, {...helpers}))} type="submit" disabled={!isValid || isSubmitting || false}>Register</Button>
+                        <Button onClick={() => (handleSubmit(values, {...helpers}))} type="submit" disabled={!isValid || isSubmitting || false}>Login</Button>
                     </Form>
                 )}
             </Formik>
@@ -111,4 +97,4 @@ const Login = props => {
     )
 }
 
-export default connect(null, {addUser})(Login);
+export default connect(null, {requestLogin})(Login);

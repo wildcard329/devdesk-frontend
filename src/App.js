@@ -6,7 +6,7 @@ import LoginPage from "./components/login/loginpage.jsx";
 import Dashboard from "./components/userdashboard/dashboard.jsx";
 import { connect } from "react-redux";
 
-const SignUpRoute = ({component: Component, ...props}) => {
+const LoginRoute = ({component: Component, ...props}) => {
 
   return (
   <Route
@@ -37,7 +37,7 @@ function App() {
     <div className="App">
       <Switch>
         <ProtectedRoute path = "/dashboard" component={Dashboard} />
-        <SignUpRoute exact path = "/" component={SignupPage} />
+        <LoginRoute exact path = "/" component={LoginPage} />
       </Switch>
     </div>
   );
@@ -47,7 +47,7 @@ const mapStateToProps = (state) => {
   console.log(state)
   return {
     
-    loggedIn: state.loggedIn
+    // loggedIn: state.loggedIn
   }
 }
 
