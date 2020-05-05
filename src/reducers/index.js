@@ -3,6 +3,7 @@ import {ADD_USER} from '../actions';
 const initialState = {
     isWorking: true,
     loggedIn: false,
+    tickets: [],
     currentUser: {}
 }
 

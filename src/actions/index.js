@@ -1,5 +1,5 @@
 import axios from "axios";
-import axiosWithAuth from "../utils/axioswithauth.js";
+import {axiosWithAuth} from "../utils/axioswithauth.js";
 
 
 export const REQUEST_USER = "REQUEST_USER";
@@ -18,4 +18,11 @@ export const requestLogin = (credentials) => dispatch => {
     axios.post('https://bw-node.herokuapp.com/auth/login', credentials)
         .then(credentials => dispatch({type: USER_LOGIN, payload: credentials}))
         .catch(err => console.error(err, 'err', err.message))
+}
+
+export const getTickets = () => dispatch => {
+    axiosWithAuth.get('/tickets')
+        .then(response => {
+            dispatch({type: GET_TICKETS, payload: response})
+        })
 }
