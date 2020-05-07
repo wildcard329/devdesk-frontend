@@ -21,8 +21,10 @@ export const requestLogin = (credentials) => dispatch => {
 }
 
 export const getTickets = () => dispatch => {
-    axiosWithAuth.get('/tickets')
+    axiosWithAuth.get('/ticket')
         .then(response => {
+            console.log(response)
             dispatch({type: GET_TICKETS, payload: response})
-        })
+        }, [])
+        .catch(err => console.error(err, 'err', err.message))
 }

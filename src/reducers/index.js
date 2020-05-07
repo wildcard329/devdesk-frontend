@@ -1,8 +1,6 @@
-import {ADD_USER} from '../actions';
+import {ADD_USER, GET_TICKETS} from '../actions';
 
 const initialState = {
-    isWorking: true,
-    loggedIn: false,
     tickets: [],
     currentUser: {}
 }
@@ -16,6 +14,12 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 currentUser: action.payload
+            }
+        case GET_TICKETS:
+            console.log('reducer', state)
+            return {
+                ...state,
+                tickets: action.payload
             }
     }
 }

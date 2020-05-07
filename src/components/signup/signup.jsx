@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
-import {useHistory} from 'react-router-dom';
+import {useHistory, Link} from 'react-router-dom';
 import {TextField, Button, Typography} from '@material-ui/core';
 import {makeStyles} from "@material-ui/styles";
 import {connect} from "react-redux";
@@ -52,6 +52,7 @@ const useStyles = makeStyles(() => {
             flexFlow: "column",
             alignItems: "center",
             justifyContent: "center",
+            margin: "0 auto",
             "& div": {
                 margin: "4%",
                 "& input": {
@@ -88,13 +89,14 @@ const Signup = props => {
     }
     return (
         <div className={classes["container"]}>
-            <Typography variant="h5">Register Below</Typography>
+            
             <Formik
             initialValues={{}}
             validationSchema={validationSchema}
             onSubmit={handleSubmit}>
                 {({ isSubmitting, isValid, values, ...helpers}) => (
                     <Form className={classes["form"]}>
+                        <Typography variant="h5">Register Below</Typography>
                         <Field name='username' label='username' variant='outlined' id='outlined-basic' type='text' as={TextField} />
                         <ErrorMessage name="username" render={msg => <div> className={classes["error"]}</div>} />
                         <Field name='password' label='password' variant='outlined' id='outlined-basic' type='text' as={TextField} />
@@ -104,6 +106,7 @@ const Signup = props => {
                         <Field name='email' label='email' variant='outlined' id='outlined-basic' type='text' as={TextField} />
                         <ErrorMessage name="email" render={msg => <div> className={classes["error"]}</div>} />
                         <Button onClick={() => (handleSubmit(values, {...helpers}))} type="submit" disabled={!isValid || isSubmitting || false}>Register</Button>
+                        <Link to='/login'>Back</Link>
                     </Form>
                 )}
             </Formik>

@@ -34,7 +34,7 @@ const TicketInfo = props => {
                 </Toolbar>
             </AppBar>
             <TicketCard />
-            { props.tickets && props.ticket.map( ticket => {
+            { props.tickets && props.tickets.map( ticket => {
                 return <TicketCard ticket={ticket} />
             })}
         </div>

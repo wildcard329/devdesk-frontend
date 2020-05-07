@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, Switch, Redirect} from "react-router-dom";
+import {Switch} from "react-router-dom";
 
 import SignupPage from "./components/signup/signuppage.jsx";
 import LoginPage from "./components/login/loginpage.jsx";
@@ -11,8 +11,8 @@ function App() {
     <div className="App">
       <Switch>
         <RedirectProtected path = "/dashboard" component={Dashboard} />
-        <LoginPage exact path = "/" component={LoginPage} />
-        <SignupPage path = "/signup" />
+        <LoginPage path = "/login" component={LoginPage} />
+        <SignupPage path = "/register" />
       </Switch>
     </div>
   );

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
-import {useHistory} from 'react-router-dom';
+import {useHistory, Link} from 'react-router-dom';
 import {TextField, Button, Typography} from '@material-ui/core';
 import {makeStyles} from "@material-ui/styles";
 import {connect} from "react-redux";
@@ -44,6 +44,7 @@ const useStyles = makeStyles(() => {
             flexFlow: "column",
             alignItems: "center",
             justifyContent: "center",
+            margin: "0 auto",
             "& div": {
                 margin: "4%",
                 "& input": {
@@ -78,18 +79,19 @@ const Login = props => {
     }
     return (
         <div className={classes["container"]}>
-            <Typography variant="h5">Sign in Below</Typography>
             <Formik
             initialValues={{}}
             validationSchema={validationSchema}
             onSubmit={handleSubmit}>
                 {({ isSubmitting, isValid, values, ...helpers}) => (
                     <Form className={classes["form"]}>
+                        <Typography variant="h5">Sign in Below</Typography>
                         <Field name='username' label='username' variant='outlined' id='outlined-basic' type='text' as={TextField} />
                         <ErrorMessage name="username" render={msg => <div> className={classes["error"]}</div>} />
                         <Field name='password' label='password' variant='outlined' id='outlined-basic' type='text' as={TextField} />
                         <ErrorMessage name="password" render={msg => <div> className={classes["error"]}</div>} />
                         <Button onClick={() => (handleSubmit(values, {...helpers}))} type="submit" disabled={!isValid || isSubmitting || false}>Login</Button>
+                        <Link to="/register">Don't have an account? Sign up!</Link>
                     </Form>
                 )}
             </Formik>
